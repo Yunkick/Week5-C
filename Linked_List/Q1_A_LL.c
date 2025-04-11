@@ -90,14 +90,56 @@ int main()
 
 int insertSortedLL(LinkedList *ll, int item)
 {
-	if(ll == NULL) return -1;
+	if(ll == NULL) return -1; //연결 리스트가 NULL 이면 실패
 
-	ListNode* new_node = malloc(sizeof(ListNode));
-	new_node->item = item;
-	new_node->next = NULL;
+	ListNode* new_node = malloc(sizeof(ListNode)); //새로운 노드 생성
+	new_node->item = item; // 새 노드의 item 필드에 값을 할당
+	new_node->next = NULL; // 새 노드의 next 필드는 NULL 로 초기화
 
-	
+	// 리스트가 비어있을 경우 size = 0 일때
+	if (ll->size == 0){ 
+		ll->head = new_node;
+		ll->size++;
+		return 0;
+	}
+
+	// 새 노드가 맨 앞에 들어가야 할 경우
+	if (item < ll-> head->item){
+		new_node->next = ll->head;
+		ll->head = new_node;
+		ll->size++;
+		return 0;
+	}
+
+	// 맨앞에 들어간 값 중복 처리
+	if (item == ll->head->item) {
+		printf("same value\n");
+		free(new_node);
+		return -1;
+	}
+
+
+	ListNode* prev = NULL;
+	ListNode* curr = ll->head;
+
+	while(curr!=NULL && curr->item < item){
+		prev = curr;
+		curr = curr->next;
+	}
+
+	// 중복 체크: 중간 또는 끝에서 동일한 값
+	if ((curr != NULL && curr->item == item)) {
+		printf("same value\n");
+		free(new_node);
+		return -1;
+	}
+
+	prev->next = new_node;
+	new_node->next = curr;
+	ll->size++;
+	return 0;
 }
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 
