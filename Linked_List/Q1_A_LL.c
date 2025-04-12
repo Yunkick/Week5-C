@@ -118,10 +118,10 @@ int insertSortedLL(LinkedList *ll, int item)
 		return -1;
 	}
 
-
+	// 중간 또는 끝에 삽입해야하는 노드
 	ListNode* prev = NULL;
 	ListNode* curr = ll->head;
-
+	
 	while(curr!=NULL && curr->item < item){
 		prev = curr;
 		curr = curr->next;
