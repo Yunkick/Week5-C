@@ -103,6 +103,37 @@ int main()
 int smallestValue(BTNode *node)
 {
 	/* add your code here */
+    if(node == NULL) return -1;                         // return null node value
+    //printf("%i\n", node->item);
+    if(node->left == NULL && node->right == NULL){      // return leaf node value
+        // printf("return leaf node %i\n", node->item);
+        return node->item;
+    }
+    int l = smallestValue(node->left);
+    int r = smallestValue(node->right);
+    int temp;
+    if(l == -1){
+        temp = r;
+    }
+    else if(r == -1){
+        temp = l;
+    }
+    else{
+        if(l < r){
+            temp = l;
+        }
+        else{
+            temp = r;
+        }
+    }
+    if(temp < node->item){
+       //  printf("return temp or node->item %i %i %i %i\n", temp, node->item, l, r);
+
+        return temp;
+    }
+    else{
+        return node->item;
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////////////
